@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import travelersTestData from '../src/data/travelers-test-data';
-import Traveler from '../src/js/Traveler';
+import Traveler from '../src/js/Travelers';
 
 describe('Travelers', () => {
   let traveler1;
