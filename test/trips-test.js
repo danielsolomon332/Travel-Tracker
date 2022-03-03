@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import tripsTestData from '../src/data/travelers-test-data';
+import tripsTestData from '../src/data/trips-test-data';
 import Trip from '../src/js/Trips';
 
 describe('Trips', () => {
@@ -7,8 +7,8 @@ describe('Trips', () => {
   let trip2;
 
   beforeEach(() => {
-    trip1 = new Traveler(tripsTestData[0]);
-    trip2 = new Traveler(tripsTestData[1]);
+    trip1 = new Trip(tripsTestData[0]);
+    trip2 = new Trip(tripsTestData[1]);
   });
 
   it('should be a function', () => {
@@ -32,7 +32,7 @@ describe('Trips', () => {
 
   it('should have a destinationID', () => {
     expect(trip1.destinationID).to.eql(49);
-    expect(trip2.destinationID).to.eql(35);
+    expect(trip2.destinationID).to.eql(25);
   });
 
   it('should have tell the number of travelers', () => {
@@ -59,4 +59,4 @@ describe('Trips', () => {
     expect(trip1.suggestedActivities).to.eql([]);
     expect(trip2.suggestedActivities).to.eql([]);
   });
-}
+});
