@@ -1,11 +1,37 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
 // An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 
+import {
+  travelersData,
+  tripsData,
+  destinationsData,
+  getData
+} from './apiCalls';
+import Traveler from './js/Travelers';
+import Trip from './js/Trips';
+import Destination from './js/Destinations';
 
-console.log('This is the JavaScript entry file - your code begins here.');
+// Query Selectors
+
+
+// Functions
+
+const getRandomUser = (users) => {
+  return users.getUser(Math.floor(Math.random() * users.users.length - 1));
+};
+
+const fetchData = () => {
+  Promise.all([travelersData, tripsData, destinationsData]).then(data => {
+    handleData(data);
+  });
+};
+
+const handleData = (data) => {
+  const users = new UserRepository(data[0].userData);
+  const currentUser = getRandomUser(users);
+};
+
+window.onload = fetchData;
