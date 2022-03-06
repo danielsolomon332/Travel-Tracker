@@ -4,7 +4,7 @@ class Traveler {
     this.name = travelerData.name;
     this.travelerType = travelerData.travelerType;
     this.thisYearsTrips = [];
-    this.lastYearsTrips = [];
+    this.previousYearsTrips = [];
   };
 };
 

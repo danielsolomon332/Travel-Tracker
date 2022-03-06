@@ -40,8 +40,8 @@ describe('Travelers', () => {
     expect(traveler2.thisYearsTrips).to.eql([]);
   });
 
-  it('should hold all of last year\s trips', () => {
-    expect(traveler1.lastYearsTrips).to.eql([]);
-    expect(traveler2.lastYearsTrips).to.eql([]);
+  it('should hold all of previous year\s trips', () => {
+    expect(traveler1.previousYearsTrips).to.eql([]);
+    expect(traveler2.previousYearsTrips).to.eql([]);
   });
 });
