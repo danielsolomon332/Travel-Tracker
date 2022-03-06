@@ -90,6 +90,17 @@ const tripsTestData = [
     "duration": 17,
     "status": "approved",
     "suggestedActivities": []
-  }]
+  },
+  {
+      "id": 41,
+      "userID": 3,
+      "destinationID": 25,
+      "travelers": 3,
+      "date": "2020/08/30",
+      "duration": 11,
+      "status": "approved",
+      "suggestedActivities": []
+    };
+];
 
   export default tripsTestData;

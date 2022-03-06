@@ -10,9 +10,9 @@ import {
   destinationsData,
   getData
 } from './apiCalls';
-import Traveler from './js/Travelers';
-import Trip from './js/Trips';
-import Destination from './js/Destinations';
+import Traveler from './js/Traveler';
+import Trip from './js/Trip';
+import Destination from './js/Destination';
 
 // Query Selectors
 
@@ -30,7 +30,7 @@ const fetchData = () => {
 };
 
 const handleData = (data) => {
-  const users = new UserRepository(data[0].userData);
+  const users = new TravelerRepository(data[0].userData);
   const currentUser = getRandomUser(users);
 };
 

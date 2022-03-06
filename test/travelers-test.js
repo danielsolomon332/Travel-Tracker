@@ -1,10 +1,6 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import travelersTestData from '../src/data/travelers-test-data';
-<<<<<<< HEAD
-import Traveler from '../src/js/Travelers';
-=======
-import Traveler from '../src/js/Traveler';
->>>>>>> 8acba26f50f486658c1e66ae13067d15e19df034
+import Traveler from '../src/js/travelers';
 
 describe('Travelers', () => {
   let traveler1;
@@ -38,4 +34,14 @@ describe('Travelers', () => {
     expect(traveler1.travelerType).to.eql("relaxer");
     expect(traveler2.travelerType).to.eql("thrill-seeker");
   });
-})
+
+  it('should have a travelerType', () => {
+    expect(traveler1.thisYearsTrips).to.eql([]);
+    expect(traveler2.thisYearsTrips).to.eql([]);
+  });
+
+  it('should hold all of previous year\s trips', () => {
+    expect(traveler1.previousYearsTrips).to.eql([]);
+    expect(traveler2.previousYearsTrips).to.eql([]);
+  });
+});
