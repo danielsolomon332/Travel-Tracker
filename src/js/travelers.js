@@ -5,10 +5,6 @@ class Traveler {
     this.travelerType = travelerData.travelerType;
     this.lastYearsTrips = tripData.lastYearsTrips;
     this.thisYearsTrips = tripData.thisYearsTrips;
-    this.totalSpentThisYear = travelData.reduce((acc, traveler) => {
-      return [...acc, new User(user)];
-    }, []);
-  };
   };
 
   getTraveler(id) {
