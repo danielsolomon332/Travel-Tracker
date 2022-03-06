@@ -6,10 +6,6 @@ class Traveler {
     this.thisYearsTrips = [];
     this.lastYearsTrips = [];
   };
-
-  getTraveler(id) {
-    return this.users.find(user => user.id === id);
-  }
 };
 
 export default Traveler;
