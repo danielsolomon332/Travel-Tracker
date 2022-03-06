@@ -34,4 +34,14 @@ describe('Travelers', () => {
     expect(traveler1.travelerType).to.eql("relaxer");
     expect(traveler2.travelerType).to.eql("thrill-seeker");
   });
+
+  it('should hold all of last year\'s trips', () => {
+    expect(traveler1.lastYearsTrips).to.eql([]);
+    expect(traveler2.lastYearsTrips).to.eql([]);
+  });
+
+  it('should hold all of this year\'s trips', () => {
+    expect(traveler1.thisYearsTrips).to.eql([]);
+    expect(traveler2.thisYearsTrips).to.eql([]);
+  });
 })
