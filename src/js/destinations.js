@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 class Destination {
   constructor(destinationData) {
     this.id = destinationData.id;

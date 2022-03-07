@@ -1,14 +1,21 @@
 import { expect } from 'chai';
+import dayjs from 'dayjs'
 import travelersTestData from '../src/data/travelers-test-data';
+import tripsTestData from '../src/data/trips-test-data';
 import Traveler from '../src/js/travelers';
+import TravelersRepository from '../src/js/TravelersRepository';
 
 describe('Travelers', () => {
   let traveler1;
   let traveler2;
+  let traveler3;
+  let traveler3Trips;
 
   beforeEach(() => {
     traveler1 = new Traveler(travelersTestData[0]);
     traveler2 = new Traveler(travelersTestData[1]);
+    traveler3 = new Traveler(travelersTestData[2]);
+    traveler3Trips = tripsTestData.filter(trip => trip.userID === traveler3.id)
   });
 
   it('should be a function', () => {
@@ -43,5 +50,43 @@ describe('Travelers', () => {
   it('should hold all of previous year\s trips', () => {
     expect(traveler1.previousYearsTrips).to.eql([]);
     expect(traveler2.previousYearsTrips).to.eql([]);
+  });
+
+  it('should be able to sort trips', () => {
+    traveler3.sortTrips(traveler3Trips)
+    expect(traveler3.previousYearsTrips).to.eql([
+      {
+        "id": 41,
+        "userID": 3,
+        "destinationID": 25,
+        "travelers": 3,
+        "date": "2020/08/30",
+        "duration": 11,
+        "status": "approved",
+        "suggestedActivities": []
+      }]);
+    expect(traveler3.thisYearsTrips).to.eql([
+      {
+        "id": 3,
+        "userID": 3,
+        "destinationID": 22,
+        "travelers": 4,
+        "date": "2022/05/22",
+        "duration": 17,
+        "status": "approved",
+        "suggestedActivities": []
+      }]);
+    expect(traveler3.thisYearsApproved).to.eql([
+      {
+        "id": 3,
+        "userID": 3,
+        "destinationID": 22,
+        "travelers": 4,
+        "date": "2022/05/22",
+        "duration": 17,
+        "status": "approved",
+        "suggestedActivities": []
+      }]);
+    expect(traveler3.thisYearsPending).to.eql([]);
   });
 });

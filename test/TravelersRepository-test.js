@@ -1,19 +1,29 @@
 import { expect } from 'chai';
-import TravelersRepository from '../src/js/TravelersRepository';
 import travelersTestData from '../src/data/travelers-test-data';
+import tripsTestData from '../src/data/trips-test-data';
+import destinationsTestData from '../src/data/destinations-test-data';
+import TravelersRepository from '../src/js/TravelersRepository';
 import Traveler from '../src/js/travelers';
+import Trip from '../src/js/trips';
+import Destination from '../src/js/destinations';
 
 describe('Travelers Repository', () => {
+  let data;
   let travelersRepository;
   let traveler1;
   let traveler2;
   let traveler3;
+  let trip1;
+  let destination1;
 
   beforeEach(() => {
-    travelersRepository = new TravelersRepository(travelersTestData);
+    data = [travelersTestData, tripsTestData, destinationsTestData]
+    travelersRepository = new TravelersRepository(data);
     traveler1 = new Traveler(travelersTestData[0]);
     traveler2 = new Traveler(travelersTestData[1]);
     traveler3 = new Traveler(travelersTestData[2]);
+    trip1 = new Trip(tripsTestData[0]);
+    destination1 = new Destination(destinationsTestData[0]);
   });
 
   it('should be a function', () => {
@@ -24,43 +34,25 @@ describe('Travelers Repository', () => {
     expect(travelersRepository).to.be.an.instanceof(TravelersRepository);
   });
 
-  it('should hold the users', () => {
-    expect(travelersRepository.travelers).to.be.an('array');
+  it('should hold all Travelers', () => {
+    expect(travelersRepository.allTravelers).to.be.an('array');
   });
 
   it('should hold an instance of Traveler', () => {
-    expect(traveler1).to.eql(travelersRepository.travelers[0]);
+    expect(traveler1.id).to.eql(travelersRepository.allTravelers[0].id);
+    expect(traveler1.name).to.eql(travelersRepository.allTravelers[0].name);
+    expect(traveler1.travelerType).to.eql(travelersRepository.allTravelers[0].travelerType);
   });
 
-  it('should be able to return the user by id', () => {
-    expect(travelersRepository.getTraveler(traveler1.id)).to.eql(traveler1);
+  it('should be able to return the traveler by id', () => {
+    expect(travelersRepository.getTraveler(traveler1.id).name).to.eql(traveler1.name);
   });
 
-  it('should be able to sort this year\'s trips', () => {
-    expect(travelersRepository.sortThisYearsTrips(traveler3)).to.eql(
-      {
-        "id": 3,
-        "userID": 3,
-        "destinationID": 22,
-        "travelers": 4,
-        "date": "2022/05/22",
-        "duration": 17,
-        "status": "approved",
-        "suggestedActivities": []
-      });
+  it('should be able to return the trip by id', () => {
+    expect(travelersRepository.getTrip(trip1.id).id).to.eql(trip1.id);
   });
 
-  it('should be able to sort previous year\'s trips', () => {
-    expect(travelersRepository.sortLastYearsTrips(traveler3)).to.eql(
-      {
-        "id": 41,
-        "userID": 3,
-        "destinationID": 25,
-        "travelers": 3,
-        "date": "2020/08/30",
-        "duration": 11,
-        "status": "approved",
-        "suggestedActivities": []
-      });
+  it('should be able to return the destination by id', () => {
+    expect(travelersRepository.getDestination(destination1.id).id).to.eql(destination1.id);
   });
-};
+});
