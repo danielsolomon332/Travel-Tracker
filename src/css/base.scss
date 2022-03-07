@@ -74,11 +74,18 @@ h3 {
 
 .trip-info {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   width: 100%;
   border: 1px solid red;
   margin: 5px 0px 5px 0px;
   color: white;
+}
+
+.individual-trip {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid black;
+  margin: 2px 0px 2px 0px;
 }
 
 .total-spent-section {

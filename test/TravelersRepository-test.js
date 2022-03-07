@@ -38,6 +38,14 @@ describe('Travelers Repository', () => {
     expect(travelersRepository.allTravelers).to.be.an('array');
   });
 
+  it('should hold all Trips', () => {
+    expect(travelersRepository.allTrips).to.be.an('array');
+  });
+
+  it('should hold all Destinations', () => {
+    expect(travelersRepository.allDestinations).to.be.an('array');
+  });
+
   it('should hold an instance of Traveler', () => {
     expect(traveler1.id).to.eql(travelersRepository.allTravelers[0].id);
     expect(traveler1.name).to.eql(travelersRepository.allTravelers[0].name);

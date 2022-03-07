@@ -11,6 +11,11 @@ class Traveler {
     this.thisYearsPending = [];
   };
 
+  getName() {
+    let name = this.name.split(' ');
+    return name[0];
+  };
+
   sortTrips(trips) {
     trips.forEach(trip => {
       if (dayjs(trip.date).year() === 2022) {
