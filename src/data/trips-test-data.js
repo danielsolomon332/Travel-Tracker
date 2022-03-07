@@ -100,7 +100,7 @@ const tripsTestData = [
       "duration": 11,
       "status": "approved",
       "suggestedActivities": []
-    };
+    }
 ];
 
   export default tripsTestData;

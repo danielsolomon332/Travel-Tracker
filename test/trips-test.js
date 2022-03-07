@@ -41,8 +41,8 @@ describe('Trips', () => {
   });
 
   it('should have a travel date', () => {
-    expect(trip1.date).to.eql("2022/09/16");
-    expect(trip2.date).to.eql("2022/10/04");
+    expect(trip1.date.year()).to.eql(2022);
+    expect(trip2.date.year()).to.eql(2022);
   });
 
   it('should have a travel duration', () => {
