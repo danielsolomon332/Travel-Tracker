@@ -7,7 +7,7 @@ class TravelersRepository {
   constructor(data) {
     this.allTravelers = data[0];
     this.allTrips = data[1];
-    this.allDestinations = data[2].map(destination => new Destination(destination));
+    this.allDestinations = data[2];
   };
 
   getTraveler(id) {
