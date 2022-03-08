@@ -9,6 +9,7 @@ let updateDOM = (currentTraveler, allDestinations) => {
   updatePreviousYearsTrips(currentTraveler, allDestinations);
   updateThisYearsTrips(currentTraveler, allDestinations);
   updateTotalSpent(currentTraveler, allDestinations);
+  populateDestinationDropdown(allDestinations);
 };
 
 const updateTraveler = (currentTraveler) => {
@@ -53,6 +54,13 @@ const updateTotalSpent = (currentTraveler, allDestinations) => {
     return acc
   }, 0) * 1.1
   totalSpentValue.innerText = `Total Spent in 2022: $${totalSpent.toFixed(0)}`
+};
+
+const populateDestinationDropdown = (allDestinations) => {
+  allDestinations.forEach(destination => {
+    destinationDropdown.innerHTML += `
+    <option>${destination.destination}</option>`
+  });
 };
 
 export {updateDOM};
