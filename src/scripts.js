@@ -12,7 +12,7 @@ import {
   getData,
   // postData
 } from './apiCalls';
-import {updateDOM} from './domUpdates';
+import {updateDOM, hide, show, hideShow} from './domUpdates';
 import Traveler from './js/travelers';
 import Trip from './js/trips';
 import Destination from './js/destinations';

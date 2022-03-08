@@ -63,4 +63,27 @@ const populateDestinationDropdown = (allDestinations) => {
   });
 };
 
-export {updateDOM};
+const bookTrip = () => {
+
+}
+
+const hide = (toHide) => {
+  toHide.forEach(element => {
+    element.classList.add('hidden');
+  })
+};
+
+const show = (toShow) => {
+  toShow.forEach(element => {
+    element.classList.remove('hidden');
+  });
+};
+
+const showHide = (toShow, toHide) => {
+  hide(toHide);
+  show(toShow);
+};
+
+
+
+export {updateDOM, hide, show, showHide};
