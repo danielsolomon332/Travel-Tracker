@@ -10,7 +10,7 @@ import {
   tripsData,
   destinationsData,
   getData,
-  // postData
+  postData
 } from './apiCalls';
 import {updateDOM, hide, show, hideShow} from './domUpdates';
 import Traveler from './js/travelers';
@@ -50,37 +50,30 @@ const handleData = (data) => {
   const pendingTrips = currentTraveler.thisYearsPending.map(trip => new Trip(trip));
   const allDestinations = newRepository.allDestinations.destinations;
   updateDOM(currentTraveler, allDestinations)
-  console.log(newRepository.allTrips.trips.length + 1)
-  console.log(currentTraveler.id)
 
-  // const sendData = (e) => {
-  //   e.preventDefault();
-  //   let formData = new FormData(e.target);
-  //     let newTrip = {
-  //       id: newRepository.alltrips.trips.length + 1,
-  //       userID: currentTraveler.id,
-  //parseINT??????       destinationID: formData.get(['destination'].index),
-  //       travelers: parseInt(formData.get('travelers')),
-  //       date: dayjs(formData.get('date')).format('YYYY/MM/DD'),
-  //       duration: parseInt(formData.get('duration')),
-  //       status: 'pending',
-  //       suggestedActivities: []
-  //     }
+  const sendData = (e) => {
+    e.preventDefault();
+    let formData = new FormData(e.target);
+      let newTrip = {
+        id: Date.now(),
+        userID: currentTraveler.id,
+        destinationID: parseInt(destinationDropdown.value),
+        travelers: parseInt(formData.get('travelers')),
+        date: dayjs(formData.get('date')).format('YYYY/MM/DD'),
+        duration: parseInt(formData.get('duration')),
+        status: 'pending',
+        suggestedActivities: []
+      }
+      console.log(pendingTrips)
 
-  // TRY THIS if .index doesn't work ////////////
-  //     allDestinations.forEach(destination => {
-//         if (newTrip.destinationID === destination.destination) {
-//            newTrip.destinationID = destination.id;
-//         }
-//       })
-  //     currentTraveler.thisYearsTrips.push(newTrip);
-  //     currentTraveler.thisYearsPending.push(newTrip)
-  //     postData(e.target.name, newTrip);
-  //     updateDOM(currentTraveler, allDestinations);
-  //     e.target.reset();
-  //   }
-  //
-  // bookingForm.onsubmit = sendData;
+      currentTraveler.thisYearsTrips.push(newTrip);
+      currentTraveler.thisYearsPending.push(newTrip)
+      postData('trips', newTrip);
+      updateDOM(currentTraveler, allDestinations);
+      e.target.reset();
+    }
+
+  bookingForm.onsubmit = sendData;
 };
 
 window.onload = fetchData;

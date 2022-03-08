@@ -59,13 +59,13 @@ const updateTotalSpent = (currentTraveler, allDestinations) => {
 const populateDestinationDropdown = (allDestinations) => {
   allDestinations.forEach(destination => {
     destinationDropdown.innerHTML += `
-    <option>${destination.destination}</option>`
+    <option value="${destination.id}">${destination.destination}</option>`
   });
 };
 
-const bookTrip = () => {
-
-}
+// const bookTrip = () => {
+//
+// }
 
 const hide = (toHide) => {
   toHide.forEach(element => {
