@@ -9,9 +9,10 @@ import {
   travelersData,
   tripsData,
   destinationsData,
-  getData
+  getData,
+  postData
 } from './apiCalls';
-import {updateDOM} from './domUpdates';
+import {updateDOM, hide, show, showHide, bookTrip, goHome, tripCost} from './domUpdates';
 import Traveler from './js/travelers';
 import Trip from './js/trips';
 import Destination from './js/destinations';
@@ -20,7 +21,6 @@ import TravelersRepository from './js/TravelersRepository';
 // Variables
 let allTravelers;
 let currentTraveler;
-let randomIndex;
 let newRepository;
 
 // Query Selectors
@@ -28,7 +28,14 @@ const travelerTitle = document.querySelector('#travelerTitle');
 const before2022TripsList = document.querySelector('#before2022TripsList');
 const during2022TripsList = document.querySelector('#during2022TripsList');
 const totalSpentValue = document.querySelector('#totalSpentValue');
-
+const bookingForm = document.querySelector('#bookingForm');
+const destinationDropdown = document.querySelector('#destinationDropdown');
+const mainView = document.querySelector('#mainView');
+const totalSpentSection = document.querySelector('#totalSpentSection');
+const bookingView = document.querySelector('#bookingView');
+const showTripCostButton = document.querySelector('#showTripCostButton');
+const homeButton = document.querySelector('#homeButton');
+const newTripCost = document.querySelector('#newTripCost');
 
 // Functions
 const fetchData = () => {
@@ -38,26 +45,39 @@ const fetchData = () => {
 };
 
 const handleData = (data) => {
-  // console.log('DATA >>>', data)
   newRepository = new TravelersRepository(data);
   allTravelers = newRepository.allTravelers.travelers.map(traveler => new Traveler(traveler))
-  // console.log("ALLTRAVELERS >>>", allTravelers)
   currentTraveler = new Traveler(allTravelers[2]);
-  // console.log('CURRENT TRAVELER >>>', currentTraveler)
-  // console.log('ALLTRIPS >>>', newRepository.allTrips)
   const travelerTrips = newRepository.allTrips.trips.filter(trip => trip.userID === currentTraveler.id);
-  // console.log('TRAVELER TRIPS >>>', travelerTrips)
   currentTraveler.sortTrips(travelerTrips);
-  // console.log('PAST TRIPS >>>', currentTraveler.previousYearsTrips)
   const approvedTrips = currentTraveler.thisYearsApproved.map(trip => new Trip(trip));
-  // console.log('THIS YEARS APPROVED TRIPS >>>', currentTraveler.thisYearsApproved)
   const pendingTrips = currentTraveler.thisYearsPending.map(trip => new Trip(trip));
-  // console.log('THIS YEARS PENDING TRIPS >>>', currentTraveler.thisYearsPending)
   const allDestinations = newRepository.allDestinations.destinations;
-  // console.log('ALLL DESTINATIONS', allDestinations)
   updateDOM(currentTraveler, allDestinations)
+
+  const sendData = (e) => {
+    let formData = new FormData(e.target);
+      let newTrip = {
+        id: Date.now(),
+        userID: currentTraveler.id,
+        destinationID: parseInt(destinationDropdown.value),
+        travelers: parseInt(formData.get('travelers')),
+        date: dayjs(formData.get('date')).format('YYYY/MM/DD'),
+        duration: parseInt(formData.get('duration')),
+        status: 'pending',
+        suggestedActivities: []
+      }
+      before2022TripsList.innerHTML = '';
+      during2022TripsList.innerHTML = '';
+      postData('trips', newTrip);
+      getData('trips');
+      updateDOM(currentTraveler, allDestinations);
+      tripCost(newTrip, allDestinations);
+      // e.target.reset();
+    }
+
+
+  bookingForm.onsubmit = sendData;
 };
-
-
 
 window.onload = fetchData;
