@@ -12,7 +12,7 @@ import {
   getData,
   postData
 } from './apiCalls';
-import {updateDOM, hide, show, hideShow} from './domUpdates';
+import {updateDOM, hide, show, showHide, bookTrip, goHome, tripCost} from './domUpdates';
 import Traveler from './js/travelers';
 import Trip from './js/trips';
 import Destination from './js/destinations';
@@ -21,7 +21,6 @@ import TravelersRepository from './js/TravelersRepository';
 // Variables
 let allTravelers;
 let currentTraveler;
-let randomIndex;
 let newRepository;
 
 // Query Selectors
@@ -30,8 +29,13 @@ const before2022TripsList = document.querySelector('#before2022TripsList');
 const during2022TripsList = document.querySelector('#during2022TripsList');
 const totalSpentValue = document.querySelector('#totalSpentValue');
 const bookingForm = document.querySelector('#bookingForm');
-const destinationDropdown = document.querySelector('#destinationDropdown')
-
+const destinationDropdown = document.querySelector('#destinationDropdown');
+const mainView = document.querySelector('#mainView');
+const totalSpentSection = document.querySelector('#totalSpentSection');
+const bookingView = document.querySelector('#bookingView');
+const showTripCostButton = document.querySelector('#showTripCostButton');
+const homeButton = document.querySelector('#homeButton');
+const newTripCost = document.querySelector('#newTripCost');
 
 // Functions
 const fetchData = () => {
@@ -52,7 +56,6 @@ const handleData = (data) => {
   updateDOM(currentTraveler, allDestinations)
 
   const sendData = (e) => {
-    e.preventDefault();
     let formData = new FormData(e.target);
       let newTrip = {
         id: Date.now(),
@@ -64,14 +67,15 @@ const handleData = (data) => {
         status: 'pending',
         suggestedActivities: []
       }
-      console.log(pendingTrips)
-
-      currentTraveler.thisYearsTrips.push(newTrip);
-      currentTraveler.thisYearsPending.push(newTrip)
+      before2022TripsList.innerHTML = '';
+      during2022TripsList.innerHTML = '';
       postData('trips', newTrip);
+      getData('trips');
       updateDOM(currentTraveler, allDestinations);
-      e.target.reset();
+      tripCost(newTrip, allDestinations);
+      // e.target.reset();
     }
+
 
   bookingForm.onsubmit = sendData;
 };
