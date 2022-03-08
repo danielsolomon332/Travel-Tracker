@@ -9,23 +9,40 @@
   <body>
     <header>
       <h1 class="main-title">Travel Tracker</h1>
+      <button class="book-trip-button hidden" id="bookTripButton">Book a Trip</button>
+      <button class="home-button" id="homeButton">Home</button>
       <h1 class="traveler-title" id="travelerTitle">Welcome User</h1>
     </header>
     <div class="background"></div>
     <main>
-      <h2 class="dashboard-title">Trips Dashboard</h2>
-      <section class="before-2022-trips">
+      <h2 class="dashboard-title hidden">Trips Dashboard</h2>
+      <section class="before-2022-trips hidden">
         <h3>Trips Before 2022</h3>
         <section class="trip-info" id="before2022TripsList">
         </section>
       </section>
-      <section class="during-2022-trips">
+      <section class="during-2022-trips hidden">
         <h3>All 2022 Trips</h3>
         <section class="trip-info" id="during2022TripsList">
         </section>
       </section>
-      <section class="total-spent-section">
+      <section class="total-spent-section hidden">
         <h2 class="total-spent-value" id="totalSpentValue">Total Spent in 2022: $5,659</h2>
+      </section>
+      <section class="booking-view" id="bookingView">
+        <h2 class="booking-title">Booking Hub</h2>
+        <form class="booking-form" id="bookingForm">
+            <label for="date">Departure Day:</label>
+            <input type="date" name="date">
+            <label for="duration">Travel Duration (days):</label>
+            <input type="number" name="duration" min="0">
+            <label for="travelers">Number of Total Travelers:</label>
+            <input type="number" name="travelers" min="0">
+            <label for="destination">Where do you want to go?</label>
+            <select type="dropdown" name="destinations">
+            </select>
+            <input type="submit">
+          </form>
       </section>
     </main>
     <img class="hidden" src="./images/turing-logo.png" alt="turing logo">
