@@ -43,15 +43,16 @@
         <h2 class="booking-title">Booking Hub</h2>
         <form class="booking-form" id="bookingForm">
           <label for="date">Departure Day:</label>
-          <input type="date" name="date" required>
+          <input class="booking-date" id="bookingDate" type="date" name="date" required>
           <label for="duration">Travel Duration (days):</label>
-          <input type="number" name="duration" min="1" required>
+          <input class="booking-duration" id="bookingDuration" type="number" name="duration" min="1" required>
           <label for="travelers">Number of Total Travelers:</label>
-          <input type="number" name="travelers" min="1" required>
+          <input class="booking-travelers" id="bookingTravelers" type="number" name="travelers" min="1" required>
           <label for="destination">Where do you want to go?</label>
           <select type="dropdown" name="destination" id="destinationDropdown" required>
           </select>
-          <input type="submit" id="submitButton">
+          <p class="error-message hidden" id="errorMessage">Please Fill Out Required Fields</p>
+          <button class="submit-button" id="submitButton">Submit</button>
         </form>
       </section>
     </main>
