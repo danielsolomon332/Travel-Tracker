@@ -127,6 +127,23 @@ label, input, select {
   margin: 5px 0px 5px 15px;
 }
 
+.login-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  color: black;
+}
+
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+  margin-top: 10px;
+}
+
+
 // form[aria-hidden = true],
 // section[aria-hidden = true] {
 //   display: none;

@@ -33,7 +33,7 @@ const updatePreviousYearsTrips = (currentTraveler, allDestinations) => {
   })
 };
 
-const updateThisYearsTrips = (currentTraveler, allDestinations) => {
+const updateThisYearsTrips = (currentTraveler, allDestinations, trip) => {
   currentTraveler.thisYearsTrips.forEach(trip => {
     let cost = tripCost(trip, allDestinations)
     during2022TripsList.innerHTML += `
@@ -68,11 +68,11 @@ const populateDestinationDropdown = (allDestinations) => {
 };
 
 const bookTrip = () => {
-  showHide([bookingView, homeButton], [mainView, bookTripButton])
+  showHide([bookingView, homeButton], [mainPage, bookTripButton]);
 };
 
-const goHome = () => {
-  showHide([mainView, bookTripButton], [bookingView, homeButton])
+const goHome = (event) => {
+  showHide([mainPage, bookTripButton], [bookingView, homeButton, loginPage]);
 };
 
 const hide = (toHide) => {

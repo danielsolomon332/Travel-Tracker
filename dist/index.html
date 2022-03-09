@@ -7,15 +7,23 @@
     <title>Travel Tracker</title>
   </head>
   <body>
-    <header>
+    <section class="login-page" id="loginPage">
+      <h1 class="login-title">Login</h1>
+      <form class="login-form">
+        <input class="username-field" id="usernameField" type="text" name="username-field" placeholder="UserName" required>
+        <input class="password-field" id="passwordField" type="text" name="password-field" placeholder="Password" required>
+        <button class="login-submit" id="loginSubmitButton" value="Login">Submit</button>
+      </form>
+    </section>
+    <header class="header hidden" id="header">
       <h1 class="main-title">Travel Tracker</h1>
       <button class="book-trip-button" id="bookTripButton">Book a Trip</button>
       <button class="home-button hidden" id="homeButton">Home</button>
       <h1 class="traveler-title" id="travelerTitle">Welcome User</h1>
     </header>
-    <div class="background"></div>
+    <div class="background" id="background"></div>
     <main>
-      <section class="main-page" id="mainView">
+      <section class="main-page hidden" id="mainPage">
         <h2 class="dashboard-title">Trips Dashboard</h2>
         <section class="before-2022-trips">
           <h3>Trips Before 2022</h3>
@@ -27,7 +35,7 @@
           <section class="trip-info" id="during2022TripsList">
           </section>
         </section>
-        <section class="total-spent-section" id="totalSpentSection">
+        <section class="total-spent-section hidden" id="totalSpentSection">
           <h2 class="total-spent-value" id="totalSpentValue">Total Spent in 2022: $5,659</h2>
         </section>
       </section>
@@ -35,13 +43,13 @@
         <h2 class="booking-title">Booking Hub</h2>
         <form class="booking-form" id="bookingForm">
           <label for="date">Departure Day:</label>
-          <input type="date" name="date">
+          <input type="date" name="date" required>
           <label for="duration">Travel Duration (days):</label>
-          <input type="number" name="duration" min="0">
+          <input type="number" name="duration" min="1" required>
           <label for="travelers">Number of Total Travelers:</label>
-          <input type="number" name="travelers" min="0">
+          <input type="number" name="travelers" min="1" required>
           <label for="destination">Where do you want to go?</label>
-          <select type="dropdown" name="destination" id="destinationDropdown">
+          <select type="dropdown" name="destination" id="destinationDropdown" required>
           </select>
           <input type="submit" id="submitButton">
         </form>
