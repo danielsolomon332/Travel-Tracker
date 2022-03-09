@@ -17,6 +17,7 @@ const updateTraveler = (currentTraveler) => {
 };
 
 const updatePreviousYearsTrips = (currentTraveler, allDestinations) => {
+  before2022TripsList.innerHTML = '';
   currentTraveler.previousYearsTrips.forEach(trip => {
     let cost = tripCost(trip, allDestinations)
     before2022TripsList.innerHTML += `
@@ -34,8 +35,9 @@ const updatePreviousYearsTrips = (currentTraveler, allDestinations) => {
 };
 
 const updateThisYearsTrips = (currentTraveler, allDestinations, trip) => {
+  during2022TripsList.innerHTML = '';
   currentTraveler.thisYearsTrips.forEach(trip => {
-    let cost = tripCost(trip, allDestinations)
+    let cost = tripCost(trip, allDestinations);
     during2022TripsList.innerHTML += `
   <section class="individual-trip" id="individualTrip">
     <article>Date: ${dayjs(trip.date).format('M/D/YYYY')}</article>
@@ -52,9 +54,9 @@ const updateThisYearsTrips = (currentTraveler, allDestinations, trip) => {
 
 const updateTotalSpent = (currentTraveler, allDestinations) => {
   const totalSpent = currentTraveler.thisYearsApproved.reduce((acc, trip) => {
-    const totalLodgingCost = allDestinations.find(destination => destination.id === trip.destinationID).estimatedLodgingCostPerDay * trip.duration
-    const totalFlightsCost = allDestinations.find(destination => destination.id === trip.destinationID).estimatedFlightCostPerPerson * trip.travelers
-    acc += totalLodgingCost + totalFlightsCost
+    const totalLodgingCost = allDestinations.find(destination => destination.id === trip.destinationID).estimatedLodgingCostPerDay * trip.duration;
+    const totalFlightsCost = allDestinations.find(destination => destination.id === trip.destinationID).estimatedFlightCostPerPerson * trip.travelers;
+    acc += totalLodgingCost + totalFlightsCost;
     return acc
   }, 0) * 1.1
   totalSpentValue.innerText = `Total Spent in 2022: $${totalSpent.toFixed(0)}`
@@ -74,6 +76,11 @@ const bookTrip = () => {
 const goHome = (event) => {
   showHide([mainPage, bookTripButton], [bookingView, homeButton, loginPage]);
 };
+
+// const finishBooking = (event) => {
+//   showHide([mainPage, bookTripButton], [bookingView, homeButton]);
+//   goHome(e)
+// };
 
 const hide = (toHide) => {
   toHide.forEach(element => {
@@ -103,5 +110,6 @@ const tripCost = (trip, allDestinations) => {
 // EVENT LISTENERS
 bookTripButton.addEventListener('click', bookTrip);
 homeButton.addEventListener('click', goHome);
+
 
 export {updateDOM, hide, show, showHide, bookTrip, goHome, tripCost};

@@ -17,6 +17,11 @@ class Traveler {
   };
 
   sortTrips(trips) {
+    this.thisYearsTrips = []
+    this.previousYearsTrips = []
+    this.thisYearsPending = []
+    this.thisYearsApproved = []
+
     trips.forEach(trip => {
       if (dayjs(trip.date).year() === 2022) {
         this.thisYearsTrips.push(trip);

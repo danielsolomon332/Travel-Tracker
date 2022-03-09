@@ -22,6 +22,8 @@ import TravelersRepository from './js/TravelersRepository';
 let allTravelers;
 let currentTraveler;
 let newRepository;
+let userID;
+let allDestinations;
 
 // Query Selectors
 const travelerTitle = document.querySelector('#travelerTitle');
@@ -43,6 +45,10 @@ const loginPage = document.querySelector('#loginPage');
 const header = document.querySelector('#header');
 const bookTripButton = document.querySelector('#bookTripButton');
 const submitButton = document.querySelector('#submitButton');
+const errorMessage = document.querySelector('#errorMessage');
+const bookingDate = document.querySelector('#bookingDate');
+const bookingDuration = document.querySelector('#bookingDuration');
+const bookingTravelers = document.querySelector('#bookingTravelers');
 
 // Functions
 const fetchData = (id) => {
@@ -53,53 +59,64 @@ const fetchData = (id) => {
 
 const handleData = (data, id) => {
   newRepository = new TravelersRepository(data);
-  allTravelers = newRepository.allTravelers.travelers.map(traveler => new Traveler(traveler))
+  allTravelers = newRepository.allTravelers.travelers.map(traveler => new Traveler(traveler));
   currentTraveler = new Traveler(allTravelers[id - 1]);
-  const travelerTrips = newRepository.allTrips.trips.filter(trip => trip.userID === currentTraveler.id);
-  currentTraveler.sortTrips(travelerTrips);
-  const approvedTrips = currentTraveler.thisYearsApproved.map(trip => new Trip(trip));
-  const pendingTrips = currentTraveler.thisYearsPending.map(trip => new Trip(trip));
-  const allDestinations = newRepository.allDestinations.destinations;
-  updateDOM(currentTraveler, allDestinations)
-
-  const sendData = (e) => {
-    let formData = new FormData(e.target);
-      let newTrip = {
-        id: Date.now(),
-        userID: currentTraveler.id,
-        destinationID: parseInt(destinationDropdown.value),
-        travelers: parseInt(formData.get('travelers')),
-        date: dayjs(formData.get('date')).format('YYYY/MM/DD'),
-        duration: parseInt(formData.get('duration')),
-        status: 'pending',
-        suggestedActivities: []
-      }
-      before2022TripsList.innerHTML = '';
-      during2022TripsList.innerHTML = '';
-      postData('trips', newTrip);
-      getData('trips');
-      updateDOM(currentTraveler, allDestinations);
-      tripCost(newTrip, allDestinations);
-    }
-
-  bookingForm.onsubmit = sendData;
+  allDestinations = newRepository.allDestinations.destinations;
+  handleTrips(newRepository.allTrips.trips);
 };
 
+const sendData = (e) => {
+  let formData = new FormData(bookingForm);
+    let newTrip = {
+      id: Date.now(),
+      userID: currentTraveler.id,
+      destinationID: parseInt(destinationDropdown.value),
+      travelers: parseInt(formData.get('travelers')),
+      date: dayjs(formData.get('date')).format('YYYY/MM/DD'),
+      duration: parseInt(formData.get('duration')),
+      status: 'pending',
+      suggestedActivities: []
+    }
+
+    postData('trips', newTrip);
+    tripCost(newTrip, allDestinations);
+    getData('trips').then(data => handleTrips(data.trips));
+  }
+
 const login = (event) => {
-  event.preventDefault()
-  const userID = parseInt(usernameField.value.charAt(8) + usernameField.value.charAt(9));
+  event.preventDefault();
+  userID = parseInt(usernameField.value.charAt(8) + usernameField.value.charAt(9));
   if (usernameField.value === `traveler${userID}` && passwordField.value === 'travel') {
-    fetchData(userID)
-    showHide([mainPage, header, totalSpentSection], [loginPage])
+    fetchData(userID);
+    showHide([mainPage, header, totalSpentSection], [loginPage]);
   }
 }
 
-const submitRequest = (e) => {
-  e.preventDefault()
-  sendData(e)
-}
-
 loginSubmitButton.addEventListener('click', event => {
-  login(event)
+  if (usernameField.value === '' || passwordField.value === '') {
+    show([errorMessage]);
+  } else {
+    hide([errorMessage]);
+    login(event);
+  }
 })
-// window.onload = fetchData;
+
+submitButton.addEventListener('click', (e) => {
+  e.preventDefault()
+  if (bookingDate.value === '' || bookingDuration.value === '' || bookingTravelers.value === '') {
+    show([errorMessage]);
+  } else {
+    hide([errorMessage]);
+    goHome(e);
+    sendData(e);
+  }
+  bookingForm.reset();
+});
+
+const handleTrips = (trips) => {
+  const travelerTrips = trips.filter(trip => trip.userID === currentTraveler.id);
+  currentTraveler.sortTrips(travelerTrips);
+  const approvedTrips = currentTraveler.thisYearsApproved.map(trip => new Trip(trip));
+  const pendingTrips = currentTraveler.thisYearsPending.map(trip => new Trip(trip));
+  updateDOM(currentTraveler, allDestinations);
+}
