@@ -30,24 +30,31 @@ const during2022TripsList = document.querySelector('#during2022TripsList');
 const totalSpentValue = document.querySelector('#totalSpentValue');
 const bookingForm = document.querySelector('#bookingForm');
 const destinationDropdown = document.querySelector('#destinationDropdown');
-const mainView = document.querySelector('#mainView');
+const mainPage = document.querySelector('#mainPage');
 const totalSpentSection = document.querySelector('#totalSpentSection');
 const bookingView = document.querySelector('#bookingView');
 const showTripCostButton = document.querySelector('#showTripCostButton');
 const homeButton = document.querySelector('#homeButton');
 const newTripCost = document.querySelector('#newTripCost');
+const usernameField = document.querySelector('#usernameField');
+const passwordField = document.querySelector('#passwordField');
+const loginSubmitButton = document.querySelector('#loginSubmitButton');
+const loginPage = document.querySelector('#loginPage');
+const header = document.querySelector('#header');
+const bookTripButton = document.querySelector('#bookTripButton');
+const submitButton = document.querySelector('#submitButton');
 
 // Functions
-const fetchData = () => {
+const fetchData = (id) => {
   Promise.all([travelersData, tripsData, destinationsData]).then(data => {
-    handleData(data);
+    handleData(data, id);
   });
 };
 
-const handleData = (data) => {
+const handleData = (data, id) => {
   newRepository = new TravelersRepository(data);
   allTravelers = newRepository.allTravelers.travelers.map(traveler => new Traveler(traveler))
-  currentTraveler = new Traveler(allTravelers[2]);
+  currentTraveler = new Traveler(allTravelers[id - 1]);
   const travelerTrips = newRepository.allTrips.trips.filter(trip => trip.userID === currentTraveler.id);
   currentTraveler.sortTrips(travelerTrips);
   const approvedTrips = currentTraveler.thisYearsApproved.map(trip => new Trip(trip));
@@ -73,11 +80,26 @@ const handleData = (data) => {
       getData('trips');
       updateDOM(currentTraveler, allDestinations);
       tripCost(newTrip, allDestinations);
-      // e.target.reset();
     }
-
 
   bookingForm.onsubmit = sendData;
 };
 
-window.onload = fetchData;
+const login = (event) => {
+  event.preventDefault()
+  const userID = parseInt(usernameField.value.charAt(8) + usernameField.value.charAt(9));
+  if (usernameField.value === `traveler${userID}` && passwordField.value === 'travel') {
+    fetchData(userID)
+    showHide([mainPage, header, totalSpentSection], [loginPage])
+  }
+}
+
+const submitRequest = (e) => {
+  e.preventDefault()
+  sendData(e)
+}
+
+loginSubmitButton.addEventListener('click', event => {
+  login(event)
+})
+// window.onload = fetchData;
